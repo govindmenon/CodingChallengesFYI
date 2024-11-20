@@ -1,0 +1,38 @@
+plugins {
+    id 'org.graalvm.buildtools.native' version '0.10.3'
+    id 'java'
+}
+
+group = 'fyi.codingchallenges'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
+dependencies {
+    implementation 'info.picocli:picocli:4.7.6'
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+graalvmNative {
+    binaries {
+        main {
+            imageName = "ccwc"
+            mainClass = "fyi.codingchallenges.Main"
+        }
+    }
+    binaries.all {
+        buildArgs.add("--verbose")
+    }
+}
