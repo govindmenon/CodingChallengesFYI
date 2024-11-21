@@ -11,4 +11,6 @@ jobs:
           distribution: 'graalvm' # See 'Supported distributions' for available options
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build using Gradle # https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
-        run: gradlew nativeCompile
+        run: |
+          cd 01-wc-tool
+          gradlew nativeCompile
