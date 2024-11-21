@@ -1,0 +1,14 @@
+name: GraalVM build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'      # See 'Options' for more details
+          distribution: 'graalvm' # See 'Supported distributions' for available options
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build using Gradle # https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
+        run: gradlew nativeCompile
