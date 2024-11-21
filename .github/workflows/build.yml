@@ -11,4 +11,10 @@ jobs:
           distribution: 'graalvm' # See 'Supported distributions' for available options
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build using Gradle # https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
-        run: gradlew nativeCompile
+        working-directory: ./01-wc-tool
+        run: ./gradlew nativeCompile
+      - name: Publish Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ccwc
+          path: 01-wc-tool/build/native/nativeCompile/ccwc
