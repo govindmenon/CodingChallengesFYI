@@ -13,3 +13,8 @@ jobs:
       - name: Build using Gradle # https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
         working-directory: ./01-wc-tool
         run: ./gradlew nativeCompile
+      - name: Publish Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ccwc
+          path: 01-wc-tool/build/native/nativeCompile/ccwc
